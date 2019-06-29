@@ -19,5 +19,13 @@ specific_blob.download_to_filename('name and extension of the file in which you 
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~Connecting with Google Cloud BigQuery~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+'''Required only if the BQ project is different'''
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r'%path to your ServiceAccountKey (json file)%'
+#os.environ['https_proxy'] = 'http://HOST:Port' ---> Only if neded while working on premises.
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r'%path to your ServiceAccountKey (json file)%' '''Required only if the BQ project is different'''
+bq_client = bigquery.Client()
+dataset = bq_client.dataset('%name of the dataset%')
+dataset.location = 'US'
+dataset = bq.client.create_dataset(dataset)
+
+datasets = list(bq_client.list_datasets())
